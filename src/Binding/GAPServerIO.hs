@@ -198,7 +198,7 @@ cmdLineGAP gap = command ++ " " ++ options ++ " " ++ script
 startGAP :: GAP -> IO (Either GAPError GAPServer)
 startGAP gap = do
   -- fork GAP at the end of a pipe
-  putStrLn $ "DEBUG//GAPServerIO.startGAP.0: " ++ cmdLineGAP gap
+  -- putStrLn $ "DEBUG//GAPServerIO.startGAP.0: " ++ cmdLineGAP gap
   (h_in, h_out, h_err, ph) <- runInteractiveCommand $ cmdLineGAP gap
   -- set pipe handles to binary mode (no character/newline translation)
   hSetBinaryMode h_in  True
@@ -235,7 +235,7 @@ startGAP gap = do
       -- block until ready msg can be read
       skipOverReplyPrefix (rprefix gap) h_out
       ready_msg <- hGetLn h_out
-      putStrLn $ "DEBUG//GAPServerIO.startGAP.1: " ++ show ready_msg
+      -- putStrLn $ "DEBUG//GAPServerIO.startGAP.1: " ++ show ready_msg
       if BS.null ready_msg
         then do
           -- ready message could not be read: fatal GAP error
